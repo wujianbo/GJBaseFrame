@@ -12,10 +12,12 @@ import com.gjw.gjbaseframe.http.RetrofitModule;
  */
 public class AppApplication extends Application {
     private AppApplicationComponent appComponent;
+    private static AppApplication appApplication;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        appApplication = this;
         appComponent = DaggerAppApplicationComponent.builder()
                 .appApplicationModule(new AppApplicationModule(this))
                 .retrofitModule(new RetrofitModule())
@@ -24,5 +26,9 @@ public class AppApplication extends Application {
 
     public AppApplicationComponent getAppComponent() {
         return appComponent;
+    }
+
+    public static AppApplication get() {
+        return appApplication;
     }
 }

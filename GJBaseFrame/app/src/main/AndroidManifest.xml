@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.activitys.SecondActivity" />
+        <activity android:name=".views.activitys.FActivity"></activity>
     </application>
 
 </manifest>
