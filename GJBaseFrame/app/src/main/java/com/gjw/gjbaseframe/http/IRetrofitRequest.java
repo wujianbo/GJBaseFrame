@@ -1,12 +1,13 @@
 package com.gjw.gjbaseframe.http;
 
 
-import com.gjw.gjbaseframe.model.response.LoginRes;
+import com.gjw.gjbaseframe.model.response.BaseRes;
+import com.gjw.gjbaseframe.model.response.StyleDataList;
 
-import retrofit.Call;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.POST;
+import java.util.List;
+
+import retrofit2.http.GET;
+import rx.Observable;
 
 /**
  * Created by hank on 2015/12/24/13:13:18
@@ -14,14 +15,11 @@ import retrofit.http.POST;
 public interface IRetrofitRequest {
 
     /**
-     * 登录
+     * 获取系列列表-首页-TabLayout
      *
-     * @param userName 用户名
-     * @param userPwd  密码
      * @return
      */
-    @FormUrlEncoded
-    @POST("login.html")
-    Call<LoginRes> login(@Field("userName") String userName, @Field("userPwd") String userPwd);
+    @GET("NAGoodsJson/getIndexStyle.html")
+    Observable<BaseRes<List<StyleDataList>>> getStyleList();
 
 }

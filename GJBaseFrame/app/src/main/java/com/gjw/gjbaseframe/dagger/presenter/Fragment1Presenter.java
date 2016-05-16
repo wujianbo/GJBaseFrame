@@ -7,5 +7,4 @@ import com.gjw.gjbaseframe.views.fragments.Fragment1;
  */
 public class Fragment1Presenter {
     Fragment1 fragment1;
-
 }

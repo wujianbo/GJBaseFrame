@@ -1,11 +1,6 @@
 package com.gjw.gjbaseframe.http;
 
-import com.gjw.gjbaseframe.dagger.injectInterface.StringNamed;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+import com.gjw.gjbaseframe.utils.L;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -14,65 +9,54 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by hank on 2015/12/24/15:15:58
  */
 @Module
 public class RetrofitModule {
-    @StringNamed("1")
+
     @Provides
     @Singleton
     public IRetrofitRequest getService() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
+        //拦截器
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request newRequest = chain.request().newBuilder().addHeader("platform", "Android").addHeader("version", "2.2").build();
-                return chain.proceed(newRequest);
+                Request request = chain.request();
+                Request authorised = request
+                        .newBuilder()
+                        .header("registeredChannels", "2")//来自1：iOS,2:Android,3:web
+                        .build();
+                return chain.proceed(authorised);
             }
         };
-        OkHttpClient httpClient = new OkHttpClient();
-        httpClient.setConnectTimeout(15_000, TimeUnit.SECONDS);
-        httpClient.interceptors().add(logging);
-        httpClient.interceptors().add(interceptor);
+        //打印拦截器
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)//添加拦截器
+                .addInterceptor(logging)//添加打印拦截器
+                .connectTimeout(30, TimeUnit.SECONDS)//设置请求超时时间
+                .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlConst.URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(httpClient)
                 .build();
-        return retrofit.create(IRetrofitRequest.class);
-    }
-
-    @StringNamed("2")
-    @Provides
-    @Singleton
-    public IRetrofitRequest getService1() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request newRequest = chain.request().newBuilder().addHeader("platform", "Android").addHeader("version", "2.2").build();
-                return chain.proceed(newRequest);
-            }
-        };
-        OkHttpClient httpClient = new OkHttpClient();
-        httpClient.setConnectTimeout(15_000, TimeUnit.SECONDS);
-        httpClient.interceptors().add(logging);
-        httpClient.interceptors().add(interceptor);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UrlConst.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
+        L.i("------------>aaaaaaa");
         return retrofit.create(IRetrofitRequest.class);
     }
 }

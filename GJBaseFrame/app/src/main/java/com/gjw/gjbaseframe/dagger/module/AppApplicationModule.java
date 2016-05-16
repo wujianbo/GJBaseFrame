@@ -1,5 +1,7 @@
 package com.gjw.gjbaseframe.dagger.module;
 
+import android.content.Context;
+
 import com.gjw.gjbaseframe.views.AppApplication;
 
 import javax.inject.Singleton;
@@ -22,5 +24,11 @@ public class AppApplicationModule {
     @Singleton
     public AppApplication getApplication() {
         return appApplication;
+    }
+
+    @Provides
+    @Singleton
+    public Context getContext() {
+        return appApplication.getBaseContext();
     }
 }
