@@ -1,4 +1,4 @@
-package com.gjw.gjbaseframe.dagger.injectInterface;
+package com.gjw.gjbaseframe.dagger.scopes;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

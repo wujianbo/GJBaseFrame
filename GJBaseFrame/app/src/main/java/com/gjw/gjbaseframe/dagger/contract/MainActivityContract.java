@@ -7,7 +7,7 @@ import com.gjw.gjbaseframe.dagger.presenter.BasePresenter;
  */
 public interface MainActivityContract {
     interface Presenter extends BasePresenter {
-        void loadLogin();
+        void loadStyleList();
     }
 
     interface View extends BaseView<Presenter> {

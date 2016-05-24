@@ -1,9 +1,8 @@
 package com.gjw.gjbaseframe.dagger.module;
 
 import com.gjw.gjbaseframe.dagger.contract.MainActivityContract;
-import com.gjw.gjbaseframe.dagger.injectInterface.ActivityScope;
 import com.gjw.gjbaseframe.dagger.presenter.MainActivityPresenter;
-import com.gjw.gjbaseframe.model.natives.User;
+import com.gjw.gjbaseframe.dagger.scopes.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,20 +18,9 @@ public class MainActivityModule {
         this.view = view;
     }
 
-    @Provides//2 注明该方法是用来提供依赖对象的特殊方法
-    public User getUser() {
-        return new User("余宝康");
-    }
-
     @ActivityScope
     @Provides
-    MainActivityContract.View provideMainActivity() {
-        return view;
-    }
-
-    @ActivityScope
-    @Provides
-    public MainActivityPresenter getMainActivityPresenter(MainActivityContract.View view) {
+    public MainActivityPresenter getMainActivityPresenter() {
         return new MainActivityPresenter(view);
     }
 }

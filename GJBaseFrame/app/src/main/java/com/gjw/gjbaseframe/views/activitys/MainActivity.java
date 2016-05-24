@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.gjw.gjbaseframe.R;
 import com.gjw.gjbaseframe.dagger.component.DaggerMainActivityComponent;
+import com.gjw.gjbaseframe.dagger.component.MainActivityComponent;
 import com.gjw.gjbaseframe.dagger.contract.MainActivityContract;
 import com.gjw.gjbaseframe.dagger.module.AppApplicationModule;
 import com.gjw.gjbaseframe.dagger.module.MainActivityModule;
@@ -39,11 +40,12 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     @Override
     public void providers() {
-        DaggerMainActivityComponent.builder()
+        MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder()
                 .mainActivityModule(new MainActivityModule(this))
                 .appApplicationModule(new AppApplicationModule(new AppApplication()))
-                .build()
-                .inject(this);
+                .appApplicationComponent(AppApplication.get().getAppComponent())
+                .build();
+        mainActivityComponent.inject(this);
     }
 
     @OnClick({R.id.textView, R.id.textView2})

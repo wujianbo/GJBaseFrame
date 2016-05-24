@@ -26,11 +26,11 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 
     @Override
     public void start() {
-        loadLogin();
+        loadStyleList();
     }
 
     @Override
-    public void loadLogin() {
+    public void loadStyleList() {
         AppApplication.get().getAppComponent().getService().getStyleList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

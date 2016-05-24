@@ -1,7 +1,7 @@
 package com.gjw.gjbaseframe.dagger.module;
 
 import com.gjw.gjbaseframe.views.activitys.SecondActivity;
-import com.gjw.gjbaseframe.dagger.injectInterface.ActivityScope;
+import com.gjw.gjbaseframe.dagger.scopes.ActivityScope;
 import com.gjw.gjbaseframe.dagger.presenter.SecondActivityPresenter;
 
 import dagger.Module;
