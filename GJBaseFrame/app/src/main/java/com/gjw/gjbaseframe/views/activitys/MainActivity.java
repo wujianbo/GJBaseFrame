@@ -9,11 +9,10 @@ import com.gjw.gjbaseframe.R;
 import com.gjw.gjbaseframe.dagger.component.DaggerMainActivityComponent;
 import com.gjw.gjbaseframe.dagger.component.MainActivityComponent;
 import com.gjw.gjbaseframe.dagger.contract.MainActivityContract;
-import com.gjw.gjbaseframe.dagger.module.AppApplicationModule;
 import com.gjw.gjbaseframe.dagger.module.MainActivityModule;
 import com.gjw.gjbaseframe.dagger.presenter.MainActivityPresenter;
+import com.gjw.gjbaseframe.dagger.presenter.SecondActivityPresenter;
 import com.gjw.gjbaseframe.utils.T;
-import com.gjw.gjbaseframe.views.AppApplication;
 
 import javax.inject.Inject;
 
@@ -24,7 +23,8 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements MainActivityContract.View {
     @Inject
     MainActivityPresenter presenter;
-
+    @Inject
+    SecondActivityPresenter secondActivityPresenter;
     @Bind(R.id.textView)
     TextView textView;
     @Bind(R.id.textView2)
@@ -42,8 +42,6 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     public void providers() {
         MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder()
                 .mainActivityModule(new MainActivityModule(this))
-                .appApplicationModule(new AppApplicationModule(new AppApplication()))
-                .appApplicationComponent(AppApplication.get().getAppComponent())
                 .build();
         mainActivityComponent.inject(this);
     }
@@ -59,11 +57,6 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
             default:
                 break;
         }
-    }
-
-    @Override
-    public void setPresenter(MainActivityContract.Presenter presenter) {
-        this.presenter = (MainActivityPresenter) presenter;
     }
 
     @Override

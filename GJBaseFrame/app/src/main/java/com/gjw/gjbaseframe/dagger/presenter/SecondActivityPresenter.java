@@ -1,19 +1,12 @@
 package com.gjw.gjbaseframe.dagger.presenter;
 
-import com.gjw.gjbaseframe.views.activitys.SecondActivity;
+import javax.inject.Inject;
 
 /**
  * Created by Hank on 2016/3/3 16:43.
  */
 public class SecondActivityPresenter {
-    private SecondActivity secondActivity;
-
-    public SecondActivityPresenter(SecondActivity secondActivity) {
-        this.secondActivity = secondActivity;
+    @Inject
+    public SecondActivityPresenter() {
     }
-
-    public void setName() {
-        secondActivity.setTextName();
-    }
-
 }

@@ -1,10 +1,9 @@
 package com.gjw.gjbaseframe.dagger.component;
 
-import android.content.Context;
-
 import com.gjw.gjbaseframe.dagger.module.AppApplicationModule;
 import com.gjw.gjbaseframe.http.IRetrofitRequest;
 import com.gjw.gjbaseframe.http.RetrofitModule;
+import com.gjw.gjbaseframe.views.App;
 
 import javax.inject.Singleton;
 
@@ -16,7 +15,10 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppApplicationModule.class, RetrofitModule.class})
 public interface AppApplicationComponent {
-    IRetrofitRequest getService();
+    void inject(App appApplication);
 
-    Context getContext();
+    App application();
+
+    IRetrofitRequest iRetrofitRequest();
+
 }

@@ -27,7 +27,6 @@ public class SecondActivityModule {
     @Provides
     @ActivityScope
     SecondActivityPresenter secondActivityPresenter() {
-        return new SecondActivityPresenter(secondActivity);
+        return new SecondActivityPresenter();
     }
-
 }

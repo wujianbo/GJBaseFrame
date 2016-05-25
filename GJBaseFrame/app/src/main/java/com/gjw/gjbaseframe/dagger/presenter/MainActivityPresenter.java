@@ -3,7 +3,7 @@ package com.gjw.gjbaseframe.dagger.presenter;
 import com.gjw.gjbaseframe.dagger.contract.MainActivityContract;
 import com.gjw.gjbaseframe.model.response.BaseRes;
 import com.gjw.gjbaseframe.model.response.StyleDataList;
-import com.gjw.gjbaseframe.views.AppApplication;
+import com.gjw.gjbaseframe.views.App;
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import rx.schedulers.Schedulers;
  */
 @Singleton
 public class MainActivityPresenter implements MainActivityContract.Presenter {
+
     private MainActivityContract.View view;
 
     public MainActivityPresenter(MainActivityContract.View view) {
@@ -31,7 +32,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 
     @Override
     public void loadStyleList() {
-        AppApplication.get().getAppComponent().getService().getStyleList()
+        App.getComponent().iRetrofitRequest().getStyleList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseRes<List<StyleDataList>>>() {

@@ -1,8 +1,6 @@
 package com.gjw.gjbaseframe.dagger.component;
 
-import com.gjw.gjbaseframe.dagger.module.AppApplicationModule;
 import com.gjw.gjbaseframe.dagger.module.MainActivityModule;
-import com.gjw.gjbaseframe.dagger.presenter.MainActivityPresenter;
 import com.gjw.gjbaseframe.dagger.scopes.ActivityScope;
 import com.gjw.gjbaseframe.views.activitys.MainActivity;
 
@@ -13,9 +11,7 @@ import dagger.Component;
  */
 @ActivityScope
 //3 指明Component在哪些Module中查找依赖
-@Component(dependencies = AppApplicationComponent.class, modules = {MainActivityModule.class, AppApplicationModule.class})
+@Component(modules = {MainActivityModule.class})
 public interface MainActivityComponent {
     void inject(MainActivity mainActivity);
-
-    MainActivityPresenter presenter();
 }
