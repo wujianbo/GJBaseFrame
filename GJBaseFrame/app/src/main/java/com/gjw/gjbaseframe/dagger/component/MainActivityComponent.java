@@ -11,7 +11,7 @@ import dagger.Component;
  */
 @ActivityScope
 //3 指明Component在哪些Module中查找依赖
-@Component(modules = {MainActivityModule.class})
+@Component(dependencies = AppComponent.class, modules = {MainActivityModule.class})
 public interface MainActivityComponent {
     void inject(MainActivity mainActivity);
 }

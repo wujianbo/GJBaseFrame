@@ -2,7 +2,6 @@ package com.gjw.gjbaseframe.dagger.module;
 
 import com.gjw.gjbaseframe.dagger.contract.MainActivityContract;
 import com.gjw.gjbaseframe.dagger.presenter.MainActivityPresenter;
-import com.gjw.gjbaseframe.dagger.presenter.SecondActivityPresenter;
 import com.gjw.gjbaseframe.dagger.scopes.ActivityScope;
 
 import dagger.Module;
@@ -23,10 +22,5 @@ public class MainActivityModule {
     @Provides
     public MainActivityPresenter getMainActivityPresenter() {
         return new MainActivityPresenter(view);
-    }
-
-    @Provides
-    public SecondActivityPresenter getSecondActivityPresenter() {
-        return new SecondActivityPresenter();
     }
 }

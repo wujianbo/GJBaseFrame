@@ -32,7 +32,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 
     @Override
     public void loadStyleList() {
-        App.getComponent().iRetrofitRequest().getStyleList()
+        App.getComponent().request().getStyleList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseRes<List<StyleDataList>>>() {

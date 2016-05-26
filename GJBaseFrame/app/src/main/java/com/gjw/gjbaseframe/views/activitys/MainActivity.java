@@ -13,6 +13,7 @@ import com.gjw.gjbaseframe.dagger.module.MainActivityModule;
 import com.gjw.gjbaseframe.dagger.presenter.MainActivityPresenter;
 import com.gjw.gjbaseframe.dagger.presenter.SecondActivityPresenter;
 import com.gjw.gjbaseframe.utils.T;
+import com.gjw.gjbaseframe.views.App;
 
 import javax.inject.Inject;
 
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     public void providers() {
         MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder()
                 .mainActivityModule(new MainActivityModule(this))
+                .appComponent(App.getComponent())
                 .build();
         mainActivityComponent.inject(this);
     }
@@ -68,4 +70,5 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     public void showFailed() {
         T.show(this, "失败");
     }
+
 }
