@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gjw.gjbaseframe.views.activitys.SecondActivity">
+    tools:context="com.yubaokang.baseframe.views.activitys.SecondActivity">
 
     <TextView
         android:id="@+id/textView3"
