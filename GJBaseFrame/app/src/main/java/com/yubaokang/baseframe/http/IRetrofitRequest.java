@@ -2,6 +2,7 @@ package com.yubaokang.baseframe.http;
 
 
 import com.yubaokang.baseframe.model.response.BaseRes;
+import com.yubaokang.baseframe.model.response.HomeWheelDataList;
 import com.yubaokang.baseframe.model.response.StyleDataList;
 
 import java.util.List;
@@ -17,4 +18,11 @@ public interface IRetrofitRequest {
     @GET("NAGoodsJson/getIndexStyle.html")
     Observable<BaseRes<List<StyleDataList>>> getStyleList();
 
+    /**
+     * 首页轮播页
+     *
+     * @return
+     */
+    @GET("NACustomerReservationJsonaaa/getRecommendImageList.html")
+    Observable<BaseRes<List<HomeWheelDataList>>> getHomeWheel();
 }

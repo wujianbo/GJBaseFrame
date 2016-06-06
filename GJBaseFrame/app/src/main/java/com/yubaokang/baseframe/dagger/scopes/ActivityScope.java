@@ -1,14 +1,15 @@
 package com.yubaokang.baseframe.dagger.scopes;
 
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Scope;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Created by Hank on 2016/3/3 16:30.
  */
 @Scope
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RUNTIME)
 public @interface ActivityScope {
 }

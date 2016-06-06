@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.dagger.component.DaggerMainActivityComponent;
-import com.yubaokang.baseframe.dagger.component.MainActivityComponent;
 import com.yubaokang.baseframe.dagger.contract.MainActivityContract;
+import com.yubaokang.baseframe.dagger.module.ActivityModule;
 import com.yubaokang.baseframe.dagger.module.MainActivityModule;
 import com.yubaokang.baseframe.dagger.presenter.MainActivityPresenter;
 import com.yubaokang.baseframe.dagger.presenter.SecondActivityPresenter;
@@ -42,11 +42,12 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     @Override
     public void providers() {
-        MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder()
-                .mainActivityModule(new MainActivityModule(this))
+        DaggerMainActivityComponent.builder()
                 .appComponent(App.getComponent())
-                .build();
-        mainActivityComponent.inject(this);
+                .activityModule(new ActivityModule(this))
+                .mainActivityModule(new MainActivityModule(this))
+                .build()
+                .inject(this);
     }
 
     @OnClick({R.id.textView, R.id.textView2})
