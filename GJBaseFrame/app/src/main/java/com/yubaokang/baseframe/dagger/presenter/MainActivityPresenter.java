@@ -1,9 +1,9 @@
 package com.yubaokang.baseframe.dagger.presenter;
 
 import com.yubaokang.baseframe.dagger.contract.MainActivityContract;
-import com.yubaokang.baseframe.model.response.BaseRes;
-import com.yubaokang.baseframe.model.response.HomeWheelDataList;
-import com.yubaokang.baseframe.model.response.StyleDataList;
+import com.yubaokang.baseframe.model.response.NewsDataRes;
+import com.yubaokang.baseframe.model.response.WeatherDataRes;
+import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 import com.yubaokang.baseframe.rxjava.TransformerUtils;
 import com.yubaokang.baseframe.utils.L;
 import com.yubaokang.baseframe.views.App;
@@ -15,11 +15,9 @@ import javax.inject.Singleton;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
-import rx.functions.Func4;
-import rx.schedulers.Schedulers;
+import rx.functions.Func3;
 
 /**
  * Created by ybk on 2016/3/1.
@@ -58,14 +56,15 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 //                    }
 //                });
         Observable.zip(
-                App.getComponent().request().getStyleList(),
-                App.getComponent().request().getHomeWheel(),
-                App.getComponent().request().getStyleList(),
-                App.getComponent().request().getHomeWheel(),
-                new Func4<BaseRes<List<StyleDataList>>, BaseRes<List<HomeWheelDataList>>, BaseRes<List<StyleDataList>>, BaseRes<List<HomeWheelDataList>>, String>() {
+                App.getComponent().request().getWeather("杭州"),
+                App.getComponent().request().getNews("1", "top"),
+                App.getComponent().request().getWeiXin("1"),
+                new Func3<WeatherDataRes, NewsDataRes, WeiXinDataListRes, String>() {
                     @Override
-                    public String call(BaseRes<List<StyleDataList>> listBaseRes, BaseRes<List<HomeWheelDataList>> listBaseRes2, BaseRes<List<StyleDataList>> listBaseRes3, BaseRes<List<HomeWheelDataList>> listBaseRes4) {
-                        return "哈哈哈";
+                    public String call(WeatherDataRes weatherDataRes, NewsDataRes newsDataRes, WeiXinDataListRes weiXinDataListRes) {
+                        return weatherDataRes.getResult().getData().getRealtime().getCity_name()
+                                + "--" + newsDataRes.getResult().getData().get(0).getTitle()
+                                + "--" + weiXinDataListRes.getResult().getList().get(0).getTitle();
                     }
                 })
                 .compose(TransformerUtils.<String>applySchedulers())
@@ -104,8 +103,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
                         return s.contains("3");
                     }
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(TransformerUtils.<String>applySchedulers())
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
