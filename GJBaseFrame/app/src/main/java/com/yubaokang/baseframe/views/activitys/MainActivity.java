@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.dagger.component.DaggerMainActivityComponent;
-import com.yubaokang.baseframe.dagger.component.MainActivityComponent;
 import com.yubaokang.baseframe.dagger.contract.MainActivityContract;
 import com.yubaokang.baseframe.dagger.module.MainActivityModule;
 import com.yubaokang.baseframe.dagger.presenter.MainActivityPresenter;
@@ -37,16 +36,16 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter.start();
-        secondActivityPresenter.set();
+//        secondActivityPresenter.set();
     }
 
     @Override
     public void providers() {
-        MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder()
-                .mainActivityModule(new MainActivityModule(this))
+        DaggerMainActivityComponent.builder()
+                .mainActivityModule(new MainActivityModule(this,this))
                 .appComponent(App.getComponent())
-                .build();
-        mainActivityComponent.inject(this);
+                .build()
+                .inject(this);
     }
 
     @OnClick({R.id.textView, R.id.textView2})
