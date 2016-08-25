@@ -12,15 +12,15 @@ import com.yubaokang.baseframe.dagger.presenter.SecondActivityPresenter;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SecondActivity extends BaseActivity {
 
-    @Bind(R.id.textView3)
+    @BindView(R.id.textView3)
     TextView textView3;
-    @Bind(R.id.button)
+    @BindView(R.id.button)
     Button button;
     @Inject
     SecondActivityPresenter presenter;

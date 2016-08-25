@@ -12,28 +12,42 @@ import com.yubaokang.baseframe.dagger.module.ActivityModule;
 import com.yubaokang.baseframe.dagger.module.MainActivityModule;
 import com.yubaokang.baseframe.dagger.presenter.MainActivityPresenter;
 import com.yubaokang.baseframe.dagger.presenter.SecondActivityPresenter;
+import com.yubaokang.baseframe.utils.L;
 import com.yubaokang.baseframe.utils.T;
 import com.yubaokang.baseframe.views.App;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dalvik.system.PathClassLoader;
 
 public class MainActivity extends BaseActivity implements MainActivityContract.View {
     @Inject
     MainActivityPresenter presenter;
     @Inject
     SecondActivityPresenter secondActivityPresenter;
-    @Bind(R.id.textView)
+    @BindView(R.id.textView)
     TextView textView;
-    @Bind(R.id.textView2)
+    @BindView(R.id.textView2)
     TextView textView2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ClassLoader classLoader = getClassLoader();
+        if (classLoader != null) {
+            L.i("---onCreate classLoader " + " : " + classLoader.toString());
+            while (classLoader.getParent() != null) {
+                classLoader = classLoader.getParent();
+                L.i("---onCreate classLoader " + " : " + classLoader.toString());
+            }
+            if (classLoader instanceof PathClassLoader) {
+                PathClassLoader pathClassLoader = (PathClassLoader) classLoader;
+//                pathClassLoader.getParent()
+            }
+        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter.start();
@@ -51,7 +65,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     }
 
     @OnClick({R.id.textView, R.id.textView2})
-    public void onClick(View view) {
+    void onClick(View view) {
         switch (view.getId()) {
             case R.id.textView:
                 startActivity(new Intent(this, SecondActivity.class));
