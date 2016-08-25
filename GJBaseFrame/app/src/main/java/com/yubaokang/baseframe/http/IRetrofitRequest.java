@@ -16,6 +16,10 @@ import rx.Observable;
 public interface IRetrofitRequest {
 
     /**
+     * 来源聚合数据
+     */
+
+    /**
      * 天气预报
      *
      * @param cityName
