@@ -11,8 +11,12 @@ public interface MainActivityContract {
     }
 
     interface View extends BaseView<Presenter> {
+        void showBegin();
+
         void showSuccess();
 
         void showFailed();
+
+        void showEnd();
     }
 }

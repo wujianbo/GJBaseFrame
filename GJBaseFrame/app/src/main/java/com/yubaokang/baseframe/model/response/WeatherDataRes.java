@@ -7,6 +7,14 @@ import java.util.List;
  */
 
 public class WeatherDataRes {
+    @Override
+    public String toString() {
+        return "WeatherDataRes{" +
+                "reason='" + reason + '\'' +
+                ", result=" + result +
+                ", error_code=" + error_code +
+                '}';
+    }
 
     /**
      * reason : 查询成功

@@ -15,9 +15,12 @@ import javax.inject.Singleton;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func3;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by ybk on 2016/3/1.
@@ -55,6 +58,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 //                        view.showSuccess();
 //                    }
 //                });
+        //同时执行
         Observable.zip(
                 App.getComponent().request().getWeather("杭州"),
                 App.getComponent().request().getNews("1", "top"),
@@ -71,10 +75,12 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
+                        L.i("----------->onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        L.i("----------->onError");
                     }
 
                     @Override
@@ -130,6 +136,46 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
                     @Override
                     public void call(String s) {
                         L.i("-----2>" + s);
+                    }
+                });
+        //顺序执行接口
+        App.getComponent().request().getWeiXin("1")
+                .doOnNext(new Action1<WeiXinDataListRes>() {
+                    @Override
+                    public void call(WeiXinDataListRes weiXinDataListRes) {
+
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        view.showBegin();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<WeiXinDataListRes, Observable<WeatherDataRes>>() {
+                    @Override
+                    public Observable<WeatherDataRes> call(WeiXinDataListRes weiXinDataListRes) {
+                        L.i("------------>3-->1" + weiXinDataListRes.toString());
+                        return App.getComponent().request().getWeather("杭州");
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<WeatherDataRes, Observable<NewsDataRes>>() {
+                    @Override
+                    public Observable<NewsDataRes> call(WeatherDataRes weatherDataRes) {
+                        L.i("------------>3-->2" + weatherDataRes.toString());
+                        return App.getComponent().request().getNews("1", "top");
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<NewsDataRes>() {
+                    @Override
+                    public void call(NewsDataRes newsDataRes) {
+                        L.i("------------>3-->3" + newsDataRes.toString());
+                        view.showEnd();
                     }
                 });
     }

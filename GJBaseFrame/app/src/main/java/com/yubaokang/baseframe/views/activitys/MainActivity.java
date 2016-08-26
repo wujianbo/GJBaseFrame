@@ -3,6 +3,7 @@ package com.yubaokang.baseframe.views.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yubaokang.baseframe.R;
@@ -32,6 +33,8 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     TextView textView;
     @BindView(R.id.textView2)
     TextView textView2;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,18 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
             default:
                 break;
         }
+    }
+
+    @Override
+    public void showBegin() {
+        textView2.setText("开始...");
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showEnd() {
+        textView2.setText("结束...");
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
