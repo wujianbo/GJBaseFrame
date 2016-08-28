@@ -11,7 +11,7 @@ import dagger.Provides;
  * Created by yubao on 2016/8/27.
  */
 @Module
-public class FragmentModule {
+public class  FragmentModule {
     private Fragment fragment;
 
     public FragmentModule(Fragment fragment) {

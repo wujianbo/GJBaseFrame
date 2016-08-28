@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.adapter.fragment.MyFragmentPagerAdapter;
 import com.yubaokang.baseframe.dagger.component.DaggerHomeActivityComponent;
+import com.yubaokang.baseframe.dagger.component.HomeActivityComponent;
 import com.yubaokang.baseframe.dagger.contract.HomeActivityContract;
 import com.yubaokang.baseframe.dagger.module.ActivityModule;
 import com.yubaokang.baseframe.dagger.module.HomeActivityModule;
@@ -50,16 +51,23 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
         return R.layout.activity_home;
     }
 
+    private HomeActivityComponent homeActivityComponent;
+
     @Override
     public void providers() {
-        DaggerHomeActivityComponent.builder().appComponent(App.getComponent())
+        homeActivityComponent = DaggerHomeActivityComponent.builder()
+                .appComponent(App.getComponent())
                 .activityModule(new ActivityModule(this))
                 .homeActivityModule(new HomeActivityModule(this))
-                .build()
-                .inject(this);
+                .build();
+        homeActivityComponent.inject(this);
     }
 
-//    @OnClick({R.id.tabItem0, R.id.tabItem1, R.id.tabItem2})
+    public HomeActivityComponent getHomeActivityComponent() {
+        return homeActivityComponent;
+    }
+
+    //    @OnClick({R.id.tabItem0, R.id.tabItem1, R.id.tabItem2})
 //    void clickItem0(View view) {
 //        switch (view.getId()) {
 //            case R.id.tabItem0:

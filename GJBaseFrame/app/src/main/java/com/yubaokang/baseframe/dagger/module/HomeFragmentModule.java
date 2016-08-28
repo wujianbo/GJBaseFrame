@@ -4,6 +4,8 @@ import com.yubaokang.baseframe.dagger.contract.HomeFragmentContract;
 import com.yubaokang.baseframe.dagger.presenter.HomeFragmentPresenter;
 import com.yubaokang.baseframe.dagger.scopes.ActivityScope;
 
+import javax.inject.Inject;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,6 +15,10 @@ import dagger.Provides;
 @Module
 public class HomeFragmentModule {
     private HomeFragmentContract.View view;
+
+    @Inject
+    public HomeFragmentModule() {
+    }
 
     public HomeFragmentModule(HomeFragmentContract.View view) {
         this.view = view;
