@@ -15,5 +15,5 @@ import dagger.Component;
 public interface HomeActivityComponent extends ActivityComponent {
     void inject(HomeActivity homeActivity);
 
-    HomeFragmentComponent homeFragmentComponent();
+//    HomeFragmentComponent homeFragmentComponent();
 }

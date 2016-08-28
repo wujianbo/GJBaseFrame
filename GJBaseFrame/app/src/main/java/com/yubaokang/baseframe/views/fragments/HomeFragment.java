@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.dagger.component.DaggerHomeFragmentComponent;
-import com.yubaokang.baseframe.dagger.component.HomeFragmentComponent;
 import com.yubaokang.baseframe.dagger.contract.HomeFragmentContract;
 import com.yubaokang.baseframe.dagger.module.HomeFragmentModule;
 import com.yubaokang.baseframe.dagger.presenter.HomeFragmentPresenter;
@@ -29,8 +28,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void providers() {
         if (getActivity() instanceof HomeActivity) {
-            HomeFragmentComponent homeFragmentComponent = ((HomeActivity) getActivity()).getHomeActivityComponent().homeFragmentComponent();
-            homeFragmentComponent.inject(this);
+//            HomeFragmentComponent homeFragmentComponent = ((HomeActivity) getActivity()).getHomeActivityComponent().homeFragmentComponent();
+//            homeFragmentComponent.inject(this);
 //        DaggerHomeFragmentComponent.builder().appComponent(App.getComponent())
 //                .homeFragmentModule(new HomeFragmentModule(this))
 //                .build().inject(this);
