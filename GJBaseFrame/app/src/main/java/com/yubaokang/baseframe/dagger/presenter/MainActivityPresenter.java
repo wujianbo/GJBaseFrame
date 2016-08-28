@@ -1,6 +1,7 @@
 package com.yubaokang.baseframe.dagger.presenter;
 
 import com.yubaokang.baseframe.dagger.contract.MainActivityContract;
+import com.yubaokang.baseframe.dagger.scopes.ActivityScope;
 import com.yubaokang.baseframe.model.response.NewsDataRes;
 import com.yubaokang.baseframe.model.response.WeatherDataRes;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
@@ -10,8 +11,6 @@ import com.yubaokang.baseframe.views.App;
 
 import java.util.Arrays;
 import java.util.List;
-
-import javax.inject.Singleton;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -25,7 +24,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ybk on 2016/3/1.
  */
-@Singleton
+@ActivityScope
 public class MainActivityPresenter implements MainActivityContract.Presenter {
 
     private MainActivityContract.View view;
@@ -37,6 +36,11 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
     @Override
     public void start() {
         loadStyleList();
+    }
+
+    @Override
+    public void cancel() {
+
     }
 
     @Override

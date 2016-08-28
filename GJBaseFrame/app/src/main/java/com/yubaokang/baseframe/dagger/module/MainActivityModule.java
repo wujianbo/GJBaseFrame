@@ -20,7 +20,7 @@ public class MainActivityModule {
 
     @ActivityScope
     @Provides
-    public MainActivityPresenter getMainActivityPresenter() {
+    MainActivityPresenter getMainActivityPresenter() {
         return new MainActivityPresenter(view);
     }
 }

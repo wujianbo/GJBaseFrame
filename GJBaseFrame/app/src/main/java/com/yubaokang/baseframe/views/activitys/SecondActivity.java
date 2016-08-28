@@ -13,7 +13,6 @@ import com.yubaokang.baseframe.dagger.presenter.SecondActivityPresenter;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SecondActivity extends BaseActivity {
@@ -26,10 +25,13 @@ public class SecondActivity extends BaseActivity {
     SecondActivityPresenter presenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
-        ButterKnife.bind(this);
+    public void init(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_second;
     }
 
     @Override

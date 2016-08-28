@@ -13,16 +13,13 @@ import com.yubaokang.baseframe.dagger.module.ActivityModule;
 import com.yubaokang.baseframe.dagger.module.MainActivityModule;
 import com.yubaokang.baseframe.dagger.presenter.MainActivityPresenter;
 import com.yubaokang.baseframe.dagger.presenter.SecondActivityPresenter;
-import com.yubaokang.baseframe.utils.L;
 import com.yubaokang.baseframe.utils.T;
 import com.yubaokang.baseframe.views.App;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dalvik.system.PathClassLoader;
 
 public class MainActivity extends BaseActivity implements MainActivityContract.View {
     @Inject
@@ -37,24 +34,14 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     ProgressBar progressBar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ClassLoader classLoader = getClassLoader();
-        if (classLoader != null) {
-            L.i("---onCreate classLoader " + " : " + classLoader.toString());
-            while (classLoader.getParent() != null) {
-                classLoader = classLoader.getParent();
-                L.i("---onCreate classLoader " + " : " + classLoader.toString());
-            }
-            if (classLoader instanceof PathClassLoader) {
-                PathClassLoader pathClassLoader = (PathClassLoader) classLoader;
-//                pathClassLoader.getParent()
-            }
-        }
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    public void init(Bundle savedInstanceState) {
         presenter.start();
         secondActivityPresenter.set();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @Override

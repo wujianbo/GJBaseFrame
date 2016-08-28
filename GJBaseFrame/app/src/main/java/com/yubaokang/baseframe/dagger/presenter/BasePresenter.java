@@ -5,4 +5,6 @@ package com.yubaokang.baseframe.dagger.presenter;
  */
 public interface BasePresenter {
     void start();
+
+    void cancel();//取消请求
 }
