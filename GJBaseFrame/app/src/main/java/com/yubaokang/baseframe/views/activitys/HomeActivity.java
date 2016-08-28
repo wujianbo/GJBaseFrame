@@ -1,10 +1,13 @@
 package com.yubaokang.baseframe.views.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.adapter.fragment.MyFragmentPagerAdapter;
@@ -14,6 +17,7 @@ import com.yubaokang.baseframe.dagger.contract.HomeActivityContract;
 import com.yubaokang.baseframe.dagger.module.ActivityModule;
 import com.yubaokang.baseframe.dagger.module.HomeActivityModule;
 import com.yubaokang.baseframe.dagger.presenter.HomeActivityPresenter;
+import com.yubaokang.baseframe.login.LoginActivity;
 import com.yubaokang.baseframe.views.App;
 import com.yubaokang.baseframe.views.fragments.HomeFragment;
 
@@ -83,4 +87,22 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
 //                break;
 //        }
 //    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
