@@ -1,6 +1,7 @@
 package com.yubaokang.baseframe.http;
 
 
+import com.yubaokang.baseframe.model.response.LoginData;
 import com.yubaokang.baseframe.model.response.NewsDataRes;
 import com.yubaokang.baseframe.model.response.WeatherDataRes;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
@@ -50,4 +51,14 @@ public interface IRetrofitRequest {
     @POST("http://v.juhe.cn/toutiao/index?key=0c7bb0b02f3750d523e39ab8ad7ab373")
     Observable<NewsDataRes> getNews(@Field("pno") String pno, @Field("type") String typeName);
 
+    /**
+     * 登录
+     *
+     * @param userName 用户名
+     * @param password 密码 md5
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("http://nphoneapi.goujiawang.com/NAUserInfoWebsiteJson/login.html")
+    Observable<LoginData> login(@Field("userName") String userName, @Field("password") String password);
 }

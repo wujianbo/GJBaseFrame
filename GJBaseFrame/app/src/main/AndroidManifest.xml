@@ -13,22 +13,26 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
-        android:name=".views.App"
+        android:name=".base.dagger.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activitys.MainActivity" />
-        <activity android:name=".views.activitys.SecondActivity" />
-        <activity android:name=".views.activitys.HomeActivity">
+        <!-- Glide 结合okhttp3使用 -->
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule" />
+
+        <activity android:name=".views.main.MainActivity" />
+        <activity android:name=".views.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".views.login.LoginActivity" />
+        <activity android:name=".views.webview.BaseWebActivity" />
     </application>
-
 </manifest>
