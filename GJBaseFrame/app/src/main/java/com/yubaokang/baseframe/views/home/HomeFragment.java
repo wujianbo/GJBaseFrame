@@ -3,14 +3,16 @@ package com.yubaokang.baseframe.views.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.yubaokang.baseframe.R;
-import com.yubaokang.baseframe.base.adapter.list.recyclerview.OnItemClickListener;
+import com.yubaokang.baseframe.base.adapter.list.MultiItemTypeAdapter;
+import com.yubaokang.baseframe.base.adapter.list.wrapper.HeaderAndFooterWrapper;
+import com.yubaokang.baseframe.base.adapter.list.wrapper.LoadMoreWrapper;
 import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseFragment;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
@@ -26,15 +28,17 @@ import butterknife.BindView;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentContract.View {
     @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    PullRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     @Inject
     HomeFragmentPresenter presenter;
 
-    private HomeAdapter adapter;
     private List<WeiXinDataListRes.Result.ListBean> datas;
+    private HomeAdapter adapter;
+    private HeaderAndFooterWrapper headerAndFooterWrapper;
+    private LoadMoreWrapper mLoadMoreWrapper;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -56,27 +60,54 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         return R.layout.fragment_home;
     }
 
+
+    private int pageNum = 1;
+
     @Override
     public void init(View view, @Nullable Bundle savedInstanceState) {
         presenter.start();
         datas = new ArrayList<>();
-        adapter = new HomeAdapter(getActivity(), datas);
+        adapter = new HomeAdapter(getActivity(), R.layout.item_home, datas);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        initHeaderAndFooter();
+        mLoadMoreWrapper = new LoadMoreWrapper(headerAndFooterWrapper);
+        mLoadMoreWrapper.setLoadMoreView(R.layout.layout_load_more);
+        recyclerView.setAdapter(mLoadMoreWrapper);
+
+        swipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                pageNum = 1;
                 presenter.loadDatas();
             }
         });
-        adapter.setOnItemClickListener(new OnItemClickListener<WeiXinDataListRes.Result.ListBean>() {
+        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
-            public void onItemClick(ViewGroup parent, View view, WeiXinDataListRes.Result.ListBean listBean, int position) {
+            public void onLoadMoreRequested() {
+                pageNum++;
+                presenter.loadDatas();
+            }
+        });
+
+        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<WeiXinDataListRes.Result.ListBean>() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, WeiXinDataListRes.Result.ListBean listBean, int position) {
                 Intent intent = new Intent(getActivity(), BaseWebActivity.class);
                 intent.putExtra(BaseWebActivity.URL, listBean.getUrl());
                 startActivity(intent);
             }
         });
+    }
+
+    private void initHeaderAndFooter() {
+        headerAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
+        TextView t1 = new TextView(getActivity());
+        t1.setText("Header 1");
+        TextView t2 = new TextView(getActivity());
+        t2.setText("Header 2");
+        headerAndFooterWrapper.addHeaderView(t1);
+        headerAndFooterWrapper.addHeaderView(t2);
     }
 
     @Override
@@ -86,7 +117,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
 
     @Override
     public int loadPageNum() {
-        return 1;
+        return pageNum;
     }
 
     @Override
@@ -94,9 +125,14 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         swipeRefreshLayout.setRefreshing(false);
         List<WeiXinDataListRes.Result.ListBean> lists = weiXinDataListRes.getResult().getList();
         if (ListUtil.isNotEmpty(lists)) {
-            datas.clear();
-            datas.addAll(lists);
-            adapter.notifyDataSetChanged();
+            if (pageNum == 1) {
+                datas.clear();
+                datas.addAll(lists);
+                mLoadMoreWrapper.notifyDataSetChanged();
+            } else {
+                datas.addAll(lists);
+                mLoadMoreWrapper.notifyDataSetChanged();
+            }
         }
     }
 }

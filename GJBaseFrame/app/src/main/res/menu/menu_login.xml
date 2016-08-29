@@ -4,9 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
+        android:id="@+id/item_0"
+        android:icon="@android:drawable/ic_menu_call"
+        android:orderInCategory="80"
+        android:title="拨打电话"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/item_1"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="80"
+        android:title="添加好友"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/item_login"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_my_calendar"
         android:orderInCategory="80"
         android:title="登录"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>

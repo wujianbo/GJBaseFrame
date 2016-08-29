@@ -1,4 +1,4 @@
-package com.yubaokang.baseframe.base.adapter.list;
+package com.yubaokang.baseframe.base.adapter.list.base;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,33 +24,29 @@ import com.yubaokang.baseframe.utils.ImageUtils;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews;
-    private int mPosition;
     private View mConvertView;
     private Context mContext;
-    private int mLayoutId;
 
-    public ViewHolder(Context context, View itemView, ViewGroup parent, int position) {
+    public ViewHolder(Context context, View itemView) {
         super(itemView);
         mContext = context;
         mConvertView = itemView;
-        mPosition = position;
         mViews = new SparseArray<View>();
-        mConvertView.setTag(this);
     }
 
-    public static ViewHolder get(Context context, View convertView, ViewGroup parent, int layoutId, int position) {
-        if (convertView == null) {
-            View itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
-            ViewHolder holder = new ViewHolder(context, itemView, parent, position);
-            holder.mLayoutId = layoutId;
-            return holder;
-        } else {
-            ViewHolder holder = (ViewHolder) convertView.getTag();
-            holder.mPosition = position;
-            return holder;
-        }
+
+    public static ViewHolder createViewHolder(Context context, View itemView) {
+        ViewHolder holder = new ViewHolder(context, itemView);
+        return holder;
     }
 
+    public static ViewHolder createViewHolder(Context context,
+                                              ViewGroup parent, int layoutId) {
+        View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
+                false);
+        ViewHolder holder = new ViewHolder(context, itemView);
+        return holder;
+    }
 
     /**
      * 通过viewId获取控件
@@ -70,6 +66,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public View getConvertView() {
         return mConvertView;
     }
+
+
+    /****以下为辅助方法*****/
 
     /**
      * 设置TextView的值
@@ -220,32 +219,23 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     /**
      * 关于事件的
      */
-    public ViewHolder setOnClickListener(int viewId,
-                                         View.OnClickListener listener) {
+    public ViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);
         view.setOnClickListener(listener);
         return this;
     }
 
-    public ViewHolder setOnTouchListener(int viewId,
-                                         View.OnTouchListener listener) {
+    public ViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
         View view = getView(viewId);
         view.setOnTouchListener(listener);
         return this;
     }
 
-    public ViewHolder setOnLongClickListener(int viewId,
-                                             View.OnLongClickListener listener) {
+    public ViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
         View view = getView(viewId);
         view.setOnLongClickListener(listener);
         return this;
     }
 
-    public void updatePosition(int position) {
-        mPosition = position;
-    }
 
-    public int getLayoutId() {
-        return mLayoutId;
-    }
 }

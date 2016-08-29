@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 public class HomeActivity extends BaseActivity implements HomeActivityContract.View {
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.viewPager)
@@ -38,6 +37,8 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     @Override
     public void init(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(android.R.drawable.ic_menu_camera);
+        toolbar.setTitle("小宝");
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
         fragments.add(HomeFragment.newInstance());
@@ -82,6 +83,10 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.item_0:
+                break;
+            case R.id.item_1:
+                break;
             case R.id.item_login:
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
