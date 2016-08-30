@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GJBaseFrame.iml" filepath="$PROJECT_DIR$/GJBaseFrame.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/refresh_load_more/refresh_load_more.iml" filepath="$PROJECT_DIR$/refresh_load_more/refresh_load_more.iml" />
     </modules>
   </component>
 </project>

@@ -9,7 +9,7 @@ import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.dagger.activity.ActivityModule;
 import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseActivity;
-import com.yubaokang.baseframe.utils.T;
+import com.hank.refresh.load.more.utils.T;
 
 import javax.inject.Inject;
 

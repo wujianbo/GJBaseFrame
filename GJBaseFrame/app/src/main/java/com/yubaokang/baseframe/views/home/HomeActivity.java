@@ -41,10 +41,10 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
         toolbar.setTitle("小宝");
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
+//        fragments.add(HomeFragment.newInstance());
+//        fragments.add(HomeFragment.newInstance());
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, Arrays.asList("哈哈哈", "黑河黑", "你你你")));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
     }
 

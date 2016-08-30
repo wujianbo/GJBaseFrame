@@ -1,6 +1,6 @@
 package com.yubaokang.baseframe.http;
 
-import com.yubaokang.baseframe.utils.L;
+import com.hank.refresh.load.more.utils.L;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +46,7 @@ public class RetrofitModule {
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)//添加拦截器
                 .addInterceptor(logging)//添加打印拦截器
-                .connectTimeout(30, TimeUnit.SECONDS)//设置请求超时时间
+                .connectTimeout(15, TimeUnit.SECONDS)//设置请求超时时间
                 .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
                 .build();
 

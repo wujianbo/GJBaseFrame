@@ -5,7 +5,7 @@ import com.yubaokang.baseframe.model.response.NewsDataRes;
 import com.yubaokang.baseframe.model.response.WeatherDataRes;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 import com.yubaokang.baseframe.rxjava.TransformerUtils;
-import com.yubaokang.baseframe.utils.L;
+import com.hank.refresh.load.more.utils.L;
 import com.yubaokang.baseframe.base.dagger.app.App;
 
 import java.util.Arrays;

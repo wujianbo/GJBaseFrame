@@ -2,6 +2,8 @@ package com.yubaokang.baseframe.base.dagger.app;
 
 import android.app.Application;
 
+import com.bumptech.glide.request.target.ViewTarget;
+import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.http.RetrofitModule;
 
 /**
@@ -13,6 +15,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ViewTarget.setTagId(R.id.glide_tag);
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(getApplicationContext()))
                 .retrofitModule(new RetrofitModule())

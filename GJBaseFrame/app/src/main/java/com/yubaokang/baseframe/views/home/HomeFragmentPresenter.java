@@ -2,7 +2,7 @@ package com.yubaokang.baseframe.views.home;
 
 import com.yubaokang.baseframe.base.dagger.scopes.ActivityScope;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
-import com.yubaokang.baseframe.utils.L;
+import com.hank.refresh.load.more.utils.L;
 import com.yubaokang.baseframe.base.dagger.app.App;
 
 import rx.Observable;
