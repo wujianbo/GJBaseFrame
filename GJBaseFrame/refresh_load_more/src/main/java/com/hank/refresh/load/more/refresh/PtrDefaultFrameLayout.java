@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
  * Created by yubaokang on 16-6-23.
@@ -28,12 +27,16 @@ public class PtrDefaultFrameLayout extends PtrFrameLayout {
     }
 
     private void initViews() {
-        StoreHouseHeader header = new StoreHouseHeader(getContext());
-        header.setPadding(0, 0, 0, 0);
-        header.initWithString("gj");
-        header.setTextColor(0xff5722);
-        setHeaderView(header);
-        addPtrUIHandler(header);
+        //StoreHouseHeader header = new StoreHouseHeader(getContext());
+        //header.setPadding(0, 0, 0, 0);
+        //header.initWithString("gj");
+        //header.setTextColor(0xff5722);
+        //setHeaderView(header);
+        //addPtrUIHandler(header);
+
+        PtrMyDefaultHeader header1 = new PtrMyDefaultHeader(getContext());
+        setHeaderView(header1);
+        addPtrUIHandler(header1);
     }
 
     private float startY;

@@ -13,7 +13,7 @@ import com.hank.refresh.load.more.adapter.utils.WrapperUtils;
 /**
  * Created by zhy on 16/6/23.
  */
-public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;//加载更多，正在加载
     public static final int ITEM_TYPE_NO_MORE = Integer.MAX_VALUE - 3;//加载更多：没有更多
 

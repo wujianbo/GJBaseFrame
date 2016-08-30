@@ -85,7 +85,7 @@ public class RecycleEmptyErrorView extends RecyclerView {
         if (adapter != null) {
             adapter.registerAdapterDataObserver(mObserver);
         }
-        updateEmptyView();
+//        updateEmptyView();
     }
 
     @Override

@@ -76,16 +76,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         HomeAdapter adapter = new HomeAdapter(getActivity(), R.layout.item_home, datas);
-
         HeaderAndFooterWrapper headerAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
-        //View viewHeader = LayoutInflater.from(getActivity()).inflate(R.layout.home_header, null);
         headerAndFooterWrapper.addHeaderView(getHeaderView());
-
         mLoadMoreWrapper = new LoadMoreWrapper(headerAndFooterWrapper);
-
-        //mEmptyWrapper = new EmptyWrapper(mLoadMoreWrapper);
-        //mEmptyWrapper.setEmptyView(LayoutInflater.from(getActivity()).inflate(R.layout.empty_view, recyclerView, false));
-
         recyclerView.setAdapter(mLoadMoreWrapper);
 
         mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
@@ -109,9 +102,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
                 return super.checkCanDoRefresh(frame, recyclerView, header);
             }
         });
+
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<WeiXinDataListRes.Result.ListBean>() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, WeiXinDataListRes.Result.ListBean listBean, int position) {
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                WeiXinDataListRes.Result.ListBean listBean = datas.get(position - 1);
                 Intent intent = new Intent(getActivity(), BaseWebActivity.class);
                 intent.putExtra(BaseWebActivity.URL, listBean.getUrl());
                 startActivity(intent);
