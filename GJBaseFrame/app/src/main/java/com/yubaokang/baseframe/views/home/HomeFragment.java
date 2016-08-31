@@ -10,10 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout;
 import com.hank.refresh.load.more.adapter.MultiItemTypeAdapter;
-import com.hank.refresh.load.more.adapter.wrapper.HeaderAndFooterWrapper;
 import com.hank.refresh.load.more.adapter.wrapper.LoadMoreWrapper;
+import com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout;
 import com.hank.refresh.load.more.utils.ImageUtils;
 import com.hank.refresh.load.more.utils.ListUtil;
 import com.yubaokang.baseframe.R;
@@ -68,20 +67,30 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     private int pageNum = 1;
     LoadMoreWrapper mLoadMoreWrapper;
 
+    HomeAdapter1 homeAdapter1;
+
     @Override
     public void init(View view, @Nullable Bundle savedInstanceState) {
-        presenter.start();
         datas = new ArrayList<>();
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        homeAdapter1 = new HomeAdapter1(getActivity(), R.layout.item_home, datas);
+        homeAdapter1.addHeaderView(getHeaderView());
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setAdapter(homeAdapter1.adapter());
 
-        HomeAdapter adapter = new HomeAdapter(getActivity(), R.layout.item_home, datas);
-        HeaderAndFooterWrapper headerAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
-        headerAndFooterWrapper.addHeaderView(getHeaderView());
-        mLoadMoreWrapper = new LoadMoreWrapper(headerAndFooterWrapper);
-        recyclerView.setAdapter(mLoadMoreWrapper);
+        presenter.start();
 
-        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
+        homeAdapter1.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<WeiXinDataListRes.Result.ListBean>() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                WeiXinDataListRes.Result.ListBean listBean = datas.get(position - 1);
+                Intent intent = new Intent(getActivity(), BaseWebActivity.class);
+                intent.putExtra(BaseWebActivity.URL, listBean.getUrl());
+                startActivity(intent);
+            }
+        });
+
+        homeAdapter1.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 pageNum++;
@@ -102,16 +111,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
                 return super.checkCanDoRefresh(frame, recyclerView, header);
             }
         });
-
-        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<WeiXinDataListRes.Result.ListBean>() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                WeiXinDataListRes.Result.ListBean listBean = datas.get(position - 1);
-                Intent intent = new Intent(getActivity(), BaseWebActivity.class);
-                intent.putExtra(BaseWebActivity.URL, listBean.getUrl());
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -129,20 +128,24 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         ptrDefaultFrameLayout.refreshComplete();
         List<WeiXinDataListRes.Result.ListBean> lists = weiXinDataListRes.getResult().getList();
         if (ListUtil.isNotEmpty(lists)) {
+            initWheel(lists);
             if (pageNum == 1) {
-                initWheel(lists);
                 datas.clear();
                 datas.addAll(lists);
-                mLoadMoreWrapper.noMore(false);
-                mLoadMoreWrapper.notifyDataSetChanged();
+                homeAdapter1.noMore(false);
+                homeAdapter1.notifyDataSetChanged();
             } else {
                 datas.addAll(lists);
                 if (ListUtil.getCount(datas) > 50) {
-                    mLoadMoreWrapper.noMore(true);
+                    homeAdapter1.noMore(true);
                 }
-                mLoadMoreWrapper.notifyDataSetChanged();
+                homeAdapter1.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void showEmpty() {
     }
 
     private List<WeiXinDataListRes.Result.ListBean> wheels;

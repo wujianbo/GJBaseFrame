@@ -119,7 +119,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         mOnItemClickListener = onItemClickListener;
     }
 
-    public void setOnItemClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
+    public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
         mOnItemLongClickListener = onItemLongClickListener;
     }
 }

@@ -16,12 +16,11 @@ import com.hank.refresh.load.more.adapter.utils.WrapperUtils;
 public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;//加载更多，正在加载
     public static final int ITEM_TYPE_NO_MORE = Integer.MAX_VALUE - 3;//加载更多：没有更多
-
     private RecyclerView.Adapter mInnerAdapter;
     private View mLoadMoreView;
     private int mLoadMoreLayoutId;
 
-    private boolean isNoMore;//设置是否没有更多
+    private boolean isNoMore = false;//设置是否没有更多
 
     public LoadMoreWrapper(RecyclerView.Adapter adapter) {
         mInnerAdapter = adapter;
@@ -66,8 +65,11 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isShowLoadMore(position)) {
-            if (mOnLoadMoreListener != null && !isNoMore) {
-                mOnLoadMoreListener.onLoadMoreRequested();
+            if (mOnLoadMoreListener != null && !isNoMore) {//
+                int dataSize = mInnerAdapter instanceof HeaderAndFooterWrapper ? ((HeaderAndFooterWrapper) mInnerAdapter).getRealItemCount() : mInnerAdapter.getItemCount();
+                if (dataSize > 0 && position >= mInnerAdapter.getItemCount()) {
+                    mOnLoadMoreListener.onLoadMoreRequested();
+                }
             }
             return;
         }
@@ -132,9 +134,8 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
         return this;
     }
 
-    public LoadMoreWrapper setLoadMoreView() {
-        mLoadMoreLayoutId = R.layout.layout_load_more;
-        return this;
+    private void setLoadMoreView() {
+        setLoadMoreView(R.layout.layout_load_more);
     }
 
     public void noMore(boolean isNoMore) {

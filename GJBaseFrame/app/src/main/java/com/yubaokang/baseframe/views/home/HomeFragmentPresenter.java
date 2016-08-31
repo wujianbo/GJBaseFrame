@@ -34,6 +34,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     @Override
     public void loadDatas() {
+        L.i("---------->pageNum" + view.loadPageNum());
         call = App.getComponent().request().getWeiXin(view.loadPageNum() + "");
         call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,6 +47,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        view.showEmpty();
                     }
 
                     @Override

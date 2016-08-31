@@ -17,5 +17,7 @@ public interface HomeFragmentContract {
         int loadPageNum();//获取当前页
 
         void showDatas(WeiXinDataListRes weiXinDataListRes);
+
+        void showEmpty();
     }
 }

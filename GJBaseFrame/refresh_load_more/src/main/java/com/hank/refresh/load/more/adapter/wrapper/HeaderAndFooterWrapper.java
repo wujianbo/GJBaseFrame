@@ -12,7 +12,7 @@ import com.hank.refresh.load.more.adapter.utils.WrapperUtils;
 /**
  * Created by zhy on 16/6/23.
  */
-public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int BASE_ITEM_TYPE_HEADER = 100000;
     private static final int BASE_ITEM_TYPE_FOOTER = 200000;
 
@@ -45,7 +45,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         return mInnerAdapter.getItemViewType(position - getHeadersCount());
     }
 
-    private int getRealItemCount() {
+    public int getRealItemCount() {
         return mInnerAdapter.getItemCount();
     }
 
