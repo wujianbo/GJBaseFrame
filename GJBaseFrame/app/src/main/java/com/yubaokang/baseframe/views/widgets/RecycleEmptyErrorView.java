@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.yubaokang.baseframe.R;
 import com.hank.refresh.load.more.utils.L;
+import com.yubaokang.baseframe.R;
 
 
 /**
@@ -27,22 +27,23 @@ public class RecycleEmptyErrorView extends RecyclerView {
 
     private int mVisibility;
 
-    final private AdapterDataObserver mObserver = new AdapterDataObserver() {
+    private boolean isFirstSetAdapter = true;//是否第一次设置Adapter
+    private AdapterDataObserver mObserver = new AdapterDataObserver() {
         @Override
         public void onChanged() {
-            L.i("---------->onChanged");
+            L.i("------------->onChanged");
             updateEmptyView();
         }
 
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
-            L.i("---------->onItemRangeRemoved");
+            L.i("------------->onItemRangeRemoved");
             updateEmptyView();
         }
 
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
-            L.i("---------->onItemRangeInserted");
+            L.i("------------->onItemRangeInserted");
             updateEmptyView();
         }
     };
@@ -85,7 +86,7 @@ public class RecycleEmptyErrorView extends RecyclerView {
         if (adapter != null) {
             adapter.registerAdapterDataObserver(mObserver);
         }
-//        updateEmptyView();
+        updateEmptyView();
     }
 
     @Override
@@ -97,8 +98,15 @@ public class RecycleEmptyErrorView extends RecyclerView {
     }
 
     private void updateEmptyView() {
+        if (isFirstSetAdapter) {
+            isFirstSetAdapter = false;
+            mEmptyView.setVisibility(GONE);
+            super.setVisibility(VISIBLE);
+            return;
+        }
         if (mEmptyView != null && getAdapter() != null) {
-            boolean isShowEmptyView = getAdapter().getItemCount() == 2;
+            boolean isShowEmptyView = getAdapter().getItemCount() <= 2;//footer为1个item
+            L.i("------------》" + getAdapter().getItemCount() + "--" + isShowEmptyView + "---" + shouldShowErrorView());
             mEmptyView.setVisibility(isShowEmptyView && !shouldShowErrorView() && mVisibility == VISIBLE ? VISIBLE : GONE);
             super.setVisibility(!isShowEmptyView && !shouldShowErrorView() && mVisibility == VISIBLE ? VISIBLE : GONE);
         }
@@ -111,10 +119,7 @@ public class RecycleEmptyErrorView extends RecyclerView {
     }
 
     private boolean shouldShowErrorView() {
-        if (mErrorView != null && isError) {
-            return true;
-        }
-        return false;
+        return mErrorView != null && isError;
     }
 
     public void setEmptyView(View emptyView) {
@@ -139,5 +144,4 @@ public class RecycleEmptyErrorView extends RecyclerView {
         updateErrorView();
         updateEmptyView();
     }
-
 }

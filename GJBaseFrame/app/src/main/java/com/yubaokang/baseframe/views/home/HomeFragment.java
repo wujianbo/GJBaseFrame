@@ -65,9 +65,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     }
 
     private int pageNum = 1;
-    LoadMoreWrapper mLoadMoreWrapper;
 
-    HomeAdapter1 homeAdapter1;
+    private HomeAdapter1 homeAdapter1;
 
     @Override
     public void init(View view, @Nullable Bundle savedInstanceState) {
@@ -146,6 +145,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
 
     @Override
     public void showEmpty() {
+        homeAdapter1.notifyDataSetChanged();
     }
 
     private List<WeiXinDataListRes.Result.ListBean> wheels;
