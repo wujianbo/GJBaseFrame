@@ -14,6 +14,7 @@ import com.yubaokang.baseframe.base.adapter.fragment.MyFragmentPagerAdapter;
 import com.yubaokang.baseframe.base.dagger.activity.ActivityModule;
 import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseActivity;
+import com.yubaokang.baseframe.views.ScrollingActivity;
 import com.yubaokang.baseframe.views.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
         toolbar.setTitle("小宝");
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
+        fragments.add(Home2Fragment.newInstance());
         fragments.add(HomeFragment.newInstance());
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, Arrays.asList("AAA", "BBB", "CCC")));
         viewPager.setOffscreenPageLimit(3);
@@ -84,6 +85,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_0:
+                startActivity(new Intent(this, ScrollingActivity.class));
                 break;
             case R.id.item_1:
                 break;

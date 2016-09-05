@@ -14,8 +14,8 @@ import android.widget.ProgressBar;
 
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.views.BaseActivity;
-import com.yubaokang.baseframe.utils.IntentUtils;
-import com.yubaokang.baseframe.utils.NetworkStateUtils;
+import com.hank.refresh.load.more.utils.IntentUtils;
+import com.hank.refresh.load.more.utils.NetworkStateUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.yubaokang.baseframe.model.response.LoginData;
-import com.yubaokang.baseframe.utils.MD5Utils;
+import com.hank.refresh.load.more.utils.MD5Utils;
 import com.yubaokang.baseframe.base.dagger.app.App;
 
 import rx.Subscriber;

@@ -14,16 +14,10 @@ import java.util.List;
  * Created by yubaokang on 2016/8/31.
  */
 public abstract class LoadMoreAdapter<T> {
-    private Context context;
-    private int layoutId;
-    private List<T> datas;
     private CommonAdapter<T> adapter;
     private LoadMoreWrapper loadMoreWrapper;
 
     public LoadMoreAdapter(Context context, int layoutId, List<T> datas) {
-        this.context = context;
-        this.layoutId = layoutId;
-        this.datas = datas;
         adapter = new CommonAdapter<T>(context, layoutId, datas) {
             @Override
             protected void convert(ViewHolder holder, T t, int position) {

@@ -3,9 +3,10 @@
     android:id="@+id/layout_wheel"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    android:background="#dddddd"
     android:orientation="vertical">
 
-    <com.yubaokang.baseframe.views.widgets.autoscrollviewpager.AutoScrollViewPager
+    <com.hank.refresh.load.more.widgets.autoscrollviewpager.AutoScrollViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"

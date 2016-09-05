@@ -3,7 +3,7 @@ package com.yubaokang.baseframe.views.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +20,9 @@ import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseFragment;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 import com.yubaokang.baseframe.views.webview.BaseWebActivity;
-import com.yubaokang.baseframe.views.widgets.RecycleEmptyErrorView;
-import com.yubaokang.baseframe.views.widgets.autoscrollviewpager.AutoScrollViewPager;
-import com.yubaokang.baseframe.views.widgets.autoscrollviewpager.ImagePagerAdapter;
+import com.hank.refresh.load.more.widgets.RecycleEmptyErrorView;
+import com.hank.refresh.load.more.widgets.autoscrollviewpager.AutoScrollViewPager;
+import com.hank.refresh.load.more.widgets.autoscrollviewpager.ImagePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +71,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void init(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         homeAdapter1 = new HomeAdapter1(getActivity(), R.layout.item_home, datas);
         homeAdapter1.addHeaderView(getHeaderView());
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setOtherItemCount(2);
         recyclerView.setAdapter(homeAdapter1.adapter());
 
         presenter.start();
