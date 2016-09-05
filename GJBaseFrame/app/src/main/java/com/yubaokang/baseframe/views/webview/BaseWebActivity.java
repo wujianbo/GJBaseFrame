@@ -59,6 +59,11 @@ public class BaseWebActivity extends BaseActivity {
     public void apiCancel() {
     }
 
+    @Override
+    public View getCurrentLayout() {
+        return null;
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     protected void initWebView() {
         titles = new ArrayList<>();

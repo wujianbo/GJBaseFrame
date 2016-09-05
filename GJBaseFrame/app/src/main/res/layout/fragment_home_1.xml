@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ptrDefaultFrameLayout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout
+        android:id="@+id/ptrDefaultFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.hank.refresh.load.more.widgets.RecycleEmptyErrorView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-    </FrameLayout>
-
-</com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout>
+    </com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout>
+</FrameLayout>

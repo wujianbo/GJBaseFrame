@@ -51,6 +51,11 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         presenter.apiCancel();
     }
 
+    @Override
+    public View getCurrentLayout() {
+        return null;
+    }
+
     @OnClick({R.id.textView, R.id.textView2})
     void onClick(View view) {
         switch (view.getId()) {

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.adapter.fragment.MyFragmentPagerAdapter;
@@ -42,8 +43,8 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
         toolbar.setTitle("小宝");
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
-        fragments.add(Home2Fragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
+//        fragments.add(Home2Fragment.newInstance());
+//        fragments.add(HomeFragment.newInstance());
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, Arrays.asList("AAA", "BBB", "CCC")));
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
@@ -69,6 +70,11 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
     @Override
     public void apiCancel() {
         presenter.apiCancel();
+    }
+
+    @Override
+    public View getCurrentLayout() {
+        return viewPager;
     }
 
     public HomeActivityComponent getHomeActivityComponent() {

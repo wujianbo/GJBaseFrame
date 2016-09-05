@@ -13,11 +13,9 @@ public interface HomeFragmentContract {
         void loadDatas();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView {
         int loadPageNum();//获取当前页
 
         void showDatas(WeiXinDataListRes weiXinDataListRes);
-
-        void showEmpty();
     }
 }

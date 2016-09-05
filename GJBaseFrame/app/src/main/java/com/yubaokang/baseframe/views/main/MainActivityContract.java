@@ -11,7 +11,7 @@ public interface MainActivityContract {
         void loadStyleList();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView{
         void showBegin();
 
         void showSuccess();

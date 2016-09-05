@@ -15,14 +15,13 @@ import com.hank.refresh.load.more.adapter.wrapper.LoadMoreWrapper;
 import com.hank.refresh.load.more.refresh.PtrDefaultFrameLayout;
 import com.hank.refresh.load.more.utils.ImageUtils;
 import com.hank.refresh.load.more.utils.ListUtil;
+import com.hank.refresh.load.more.widgets.autoscrollviewpager.AutoScrollViewPager;
+import com.hank.refresh.load.more.widgets.autoscrollviewpager.ImagePagerAdapter;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseFragment;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 import com.yubaokang.baseframe.views.webview.BaseWebActivity;
-import com.hank.refresh.load.more.widgets.RecycleEmptyErrorView;
-import com.hank.refresh.load.more.widgets.autoscrollviewpager.AutoScrollViewPager;
-import com.hank.refresh.load.more.widgets.autoscrollviewpager.ImagePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @BindView(R.id.ptrDefaultFrameLayout)
     PtrDefaultFrameLayout ptrDefaultFrameLayout;
     @BindView(R.id.recyclerView)
-    RecycleEmptyErrorView recyclerView;
+    RecyclerView recyclerView;
 
     @Inject
     HomeFragmentPresenter presenter;
@@ -75,9 +74,10 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         homeAdapter1.addHeaderView(getHeaderView());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setOtherItemCount(2);
+//        recyclerView.setOtherItemCount(2);
         recyclerView.setAdapter(homeAdapter1.adapter());
 
+        showLoading();
         presenter.start();
 
         homeAdapter1.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<WeiXinDataListRes.Result.ListBean>() {
@@ -119,12 +119,18 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     }
 
     @Override
+    public View getCurrentLayout() {
+        return ptrDefaultFrameLayout;
+    }
+
+    @Override
     public int loadPageNum() {
         return pageNum;
     }
 
     @Override
     public void showDatas(WeiXinDataListRes weiXinDataListRes) {
+        restore();
         ptrDefaultFrameLayout.refreshComplete();
         List<WeiXinDataListRes.Result.ListBean> lists = weiXinDataListRes.getResult().getList();
         if (ListUtil.isNotEmpty(lists)) {
@@ -142,11 +148,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
                 homeAdapter1.notifyDataSetChanged();
             }
         }
-    }
-
-    @Override
-    public void showEmpty() {
-        homeAdapter1.notifyDataSetChanged();
     }
 
     private List<WeiXinDataListRes.Result.ListBean> wheels;

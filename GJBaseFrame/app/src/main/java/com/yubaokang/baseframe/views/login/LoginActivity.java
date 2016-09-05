@@ -2,6 +2,7 @@ package com.yubaokang.baseframe.views.login;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 
 import com.yubaokang.baseframe.R;
@@ -41,6 +42,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void apiCancel() {
         presenter.apiCancel();
+    }
+
+    @Override
+    public View getCurrentLayout() {
+        return null;
     }
 
     @Override

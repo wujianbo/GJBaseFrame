@@ -52,4 +52,10 @@ public class Home2Fragment extends BaseFragment {
     @Override
     public void apiCancel() {
     }
+
+    @Override
+    public View getCurrentLayout() {
+        return null;
+    }
+
 }

@@ -13,7 +13,7 @@ public interface LoginContract {
         void loadLoginData();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView {
         String loadPhone();
 
         String loadPwd();

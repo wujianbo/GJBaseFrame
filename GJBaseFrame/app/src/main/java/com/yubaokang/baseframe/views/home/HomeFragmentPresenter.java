@@ -1,12 +1,12 @@
 package com.yubaokang.baseframe.views.home;
 
-import com.yubaokang.baseframe.base.dagger.scopes.ActivityScope;
-import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 import com.hank.refresh.load.more.utils.L;
 import com.yubaokang.baseframe.base.dagger.app.App;
+import com.yubaokang.baseframe.base.dagger.scopes.ActivityScope;
+import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 
-import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
 @ActivityScope
 public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     private HomeFragmentContract.View view;
-    private Observable<WeiXinDataListRes> call;
+    Subscription subscription;
 
     public HomeFragmentPresenter(HomeFragmentContract.View view) {
         this.view = view;
@@ -29,14 +29,15 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     @Override
     public void apiCancel() {
-        call.unsubscribeOn(Schedulers.io());
+        if (subscription != null && subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     @Override
     public void loadDatas() {
-        L.i("---------->pageNum" + view.loadPageNum());
-        call = App.getComponent().request().getWeiXin(view.loadPageNum() + "");
-        call.subscribeOn(Schedulers.io())
+        subscription = App.getComponent().request().getWeiXin(view.loadPageNum() + "")
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<WeiXinDataListRes>() {

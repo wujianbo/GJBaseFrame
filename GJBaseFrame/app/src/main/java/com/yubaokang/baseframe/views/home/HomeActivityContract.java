@@ -13,7 +13,7 @@ public interface HomeActivityContract {
 
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView{
 
     }
 }
