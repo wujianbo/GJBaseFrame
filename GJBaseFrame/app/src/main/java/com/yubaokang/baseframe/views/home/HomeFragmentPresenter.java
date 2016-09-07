@@ -5,10 +5,13 @@ import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.dagger.scopes.ActivityScope;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 
+import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -38,10 +41,20 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     @Override
     public void loadDatas() {
-        App.getComponent().request().getWeiXin(view.loadPageNum() + "")
+        App.getComponent().request().getWeiXin(String.valueOf(view.loadPageNum()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
+                .flatMap(new Function<WeiXinDataListRes, Publisher<WeiXinDataListRes>>() {
+                    @Override
+                    public Publisher<WeiXinDataListRes> apply(WeiXinDataListRes weiXinDataListRes) throws Exception {
+                        weiXinDataListRes = null;
+                        if (weiXinDataListRes == null) {
+                            return Flowable.error(new NullPointerException("解析错误"));
+                        }
+                        return Flowable.just(weiXinDataListRes);
+                    }
+                })
                 .subscribe(new Subscriber<WeiXinDataListRes>() {
                     @Override
                     public void onComplete() {

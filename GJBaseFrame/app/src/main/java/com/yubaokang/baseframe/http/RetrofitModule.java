@@ -59,5 +59,22 @@ public class RetrofitModule {
         L.i("------------>getService()");
         return retrofit.create(IRetrofitRequest.class);
     }
+
+//    public <T> Subscription execute(rx.Observable<Result<T>> observable, CallBack<T> subscriber) {
+//        return observable.subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .flatMap(new Func1<Result<T>, Observable<T>>() {
+//
+//                    public Observable<T> call(Result<T> t) {
+//                        Result result = (Result) t;
+//                        if (result.getStatus() == 0) {
+//                            return Observable.error(new ServerException(result.getMsg()));
+//                        }
+//                        return Observable.just((T) result.getData());
+//                    }
+//                })
+//                .subscribe(subscriber);
+//    }
 }
 
