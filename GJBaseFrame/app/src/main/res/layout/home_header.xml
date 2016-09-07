@@ -6,7 +6,7 @@
     android:background="#dddddd"
     android:orientation="vertical">
 
-    <com.hank.refresh.load.more.widgets.autoscrollviewpager.AutoScrollViewPager
+    <com.gj.base.lib.widgets.autoscrollviewpager.AutoScrollViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"

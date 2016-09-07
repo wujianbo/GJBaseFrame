@@ -2,9 +2,9 @@ package com.yubaokang.baseframe.views.home;
 
 import android.content.Context;
 
+import com.gj.base.lib.adapter.CommonAdapter;
+import com.gj.base.lib.adapter.base.ViewHolder;
 import com.yubaokang.baseframe.R;
-import com.hank.refresh.load.more.adapter.CommonAdapter;
-import com.hank.refresh.load.more.adapter.base.ViewHolder;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 
 import java.util.List;

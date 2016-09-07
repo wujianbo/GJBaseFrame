@@ -12,10 +12,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.gj.base.lib.utils.IntentUtils;
+import com.gj.base.lib.utils.NetworkStateUtils;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.views.BaseActivity;
-import com.hank.refresh.load.more.utils.IntentUtils;
-import com.hank.refresh.load.more.utils.NetworkStateUtils;
 
 import java.util.ArrayList;
 import java.util.List;

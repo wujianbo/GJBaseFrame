@@ -2,7 +2,7 @@ package com.yubaokang.baseframe.views.login;
 
 import android.app.Activity;
 
-import com.hank.refresh.load.more.utils.L;
+import com.gj.base.lib.utils.L;
 
 import javax.inject.Inject;
 

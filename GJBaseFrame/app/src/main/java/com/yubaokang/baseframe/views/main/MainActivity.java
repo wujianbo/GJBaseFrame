@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.gj.base.lib.utils.T;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.dagger.activity.ActivityModule;
 import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseActivity;
-import com.hank.refresh.load.more.utils.T;
 
 import javax.inject.Inject;
 
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     @Override
     public View getCurrentLayout() {
-        return null;
+        return textView;
     }
 
     @OnClick({R.id.textView, R.id.textView2})

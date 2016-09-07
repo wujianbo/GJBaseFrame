@@ -17,6 +17,7 @@ import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseActivity;
 import com.yubaokang.baseframe.views.ScrollingActivity;
 import com.yubaokang.baseframe.views.login.LoginActivity;
+import com.yubaokang.baseframe.views.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,6 +95,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityContract.V
                 startActivity(new Intent(this, ScrollingActivity.class));
                 break;
             case R.id.item_1:
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.item_login:
                 startActivity(new Intent(this, LoginActivity.class));

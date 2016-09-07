@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.hank.refresh.load.more.loading.VaryViewHelperController;
+import com.gj.base.lib.loading.VaryViewHelperController;
 import com.yubaokang.baseframe.base.mvp.BaseView;
 
 import butterknife.ButterKnife;

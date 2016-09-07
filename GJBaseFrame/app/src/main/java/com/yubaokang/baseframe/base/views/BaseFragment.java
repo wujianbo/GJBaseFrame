@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hank.refresh.load.more.loading.VaryViewHelperController;
+import com.gj.base.lib.loading.VaryViewHelperController;
 import com.yubaokang.baseframe.base.mvp.BaseView;
 
 import butterknife.ButterKnife;

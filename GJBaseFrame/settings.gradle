@@ -1,1 +1,1 @@
-include ':app', ':refresh_load_more'
+include ':app', ':refresh_load_more', ':baselib'

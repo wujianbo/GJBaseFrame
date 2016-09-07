@@ -1,6 +1,7 @@
 package com.yubaokang.baseframe.http;
 
-import com.hank.refresh.load.more.utils.L;
+import com.gj.base.lib.utils.L;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +16,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -53,7 +53,7 @@ public class RetrofitModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlConst.URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)
                 .build();
         L.i("------------>getService()");

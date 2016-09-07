@@ -5,12 +5,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+import com.gj.base.lib.utils.T;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.base.dagger.activity.ActivityModule;
-import com.yubaokang.baseframe.model.response.LoginData;
-import com.hank.refresh.load.more.utils.T;
 import com.yubaokang.baseframe.base.dagger.app.App;
 import com.yubaokang.baseframe.base.views.BaseActivity;
+import com.yubaokang.baseframe.model.response.LoginData;
 
 import javax.inject.Inject;
 

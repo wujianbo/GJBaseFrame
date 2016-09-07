@@ -2,8 +2,8 @@ package com.yubaokang.baseframe.views.home;
 
 import android.content.Context;
 
-import com.hank.refresh.load.more.adapter.base.ViewHolder;
-import com.hank.refresh.load.more.adapter.my.HeaderFooterLoadMoreAdapter;
+import com.gj.base.lib.adapter.base.ViewHolder;
+import com.gj.base.lib.adapter.my.HeaderFooterLoadMoreAdapter;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 
