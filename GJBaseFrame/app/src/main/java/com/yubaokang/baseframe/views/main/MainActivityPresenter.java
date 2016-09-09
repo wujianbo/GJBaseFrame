@@ -7,13 +7,23 @@ import com.yubaokang.baseframe.model.response.NewsDataRes;
 import com.yubaokang.baseframe.model.response.WeatherDataRes;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 
+import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.Arrays;
+import java.util.List;
+
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DefaultSubscriber;
 
 /**
  * Created by ybk on 2016/3/1.
@@ -101,95 +111,106 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
                         view.showSuccess();
                     }
                 });
-//        List<String> list = Arrays.asList("list1", "list2", "", "list3");
-//        Flowable.fromArray(list).mergeWith(Flowable.<List<String>>just("just1", "just2"))
-//                .flatMap(new Function<String, Flowable<String>>() {
-//                    @Override
-//                    public Flowable<String> apply(String s) throws Exception {
-//                        return Flowable.just(s);
-//                    }
-//                })
-//                //                .map(new Func1<String, Boolean>() {
-//                //                    @Override
-//                //                    public Boolean call(String s) {
-//                //                        return TextUtils.isEmpty(s);
-//                //                    }
-//                //                })
-//                .filter(new Function<String, Boolean>() {
-//                    @Override
-//                    public Boolean apply(String s) throws Exception {
-//                        return s.contains("3");
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                        L.i("list__" + s);
-//                    }
-//                });
-//        Flowable//.just("aaa","ab","ca","d")
-//                .create(new Flowable.OnSubscribe<String>() {
-//                    @Override
-//                    public void call(Subscriber<? super String> subscriber) {
-//                        subscriber.onNext("aaaa");
-//                        subscriber.onNext("ab");
-//                        subscriber.onNext("ca");
-//                        subscriber.onNext("d");
-//                    }
-//                })
-//                .filter(new Function<String, Boolean>() {
-//                    @Override
-//                    public Boolean apply(String s) throws Exception {
-//                        return s.contains("a");
-//                    }
-//                })
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                        L.i("-----2>" + s);
-//                    }
-//                });
-//        //顺序执行接口
-//        App.getComponent().request().getWeiXin("1")
-//                .doOnNext(new Consumer<WeiXinDataListRes>() {
-//                    @Override
-//                    public void accept(WeiXinDataListRes weiXinDataListRes) throws Exception {
-//
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .doOnSubscribe(new Action0() {
-//                    @Override
-//                    public void call() {
-//                        view.showBegin();
-//                    }
-//                })
-//                .subscribeOn(AndroidSchedulers.mainThread())
-//                .observeOn(Schedulers.io())
-//                .flatMap(new Fun<WeiXinDataListRes, Observable<WeatherDataRes>>() {
-//                    @Override
-//                    public Observable<WeatherDataRes> call(WeiXinDataListRes weiXinDataListRes) {
-//                        L.i("------------>3-->1" + weiXinDataListRes.toString());
-//                        return App.getComponent().request().getWeather("杭州");
-//                    }
-//                })
-//                .observeOn(Schedulers.io())
-//                .flatMap(new Func1<WeatherDataRes, Observable<NewsDataRes>>() {
-//                    @Override
-//                    public Observable<NewsDataRes> call(WeatherDataRes weatherDataRes) {
-//                        L.i("------------>3-->2" + weatherDataRes.toString());
-//                        return App.getComponent().request().getNews("1", "top");
-//                    }
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<NewsDataRes>() {
-//                    @Override
-//                    public void accept(NewsDataRes newsDataRes) throws Exception {
-//                        L.i("------------>3-->3" + newsDataRes.toString());
-//                        view.showEnd();
-//                    }
-//                });
+        List<String> list = Arrays.asList("list1", "list2", "", "list3");
+        List<String> just = Arrays.asList("just1", "just2");
+        Flowable.just(list).mergeWith(Flowable.just(just))
+                .flatMap(new Function<List<String>, Publisher<String>>() {
+                    @Override
+                    public Publisher<String> apply(List<String> strings) throws Exception {
+                        return Flowable.fromIterable(strings);
+                    }
+                })
+                .filter(new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) throws Exception {
+                        return false;
+                    }
+                })
+                .map(new Function<String, Boolean>() {
+                    @Override
+                    public Boolean apply(String s) throws Exception {
+                        return false;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultSubscriber<Boolean>() {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        Flowable//.just("aaa","ab","ca","d")
+                .create(new FlowableOnSubscribe<String>() {
+                    @Override
+                    public void subscribe(FlowableEmitter<String> e) throws Exception {
+                        e.onNext("aaaa");
+                        e.onNext("ab");
+                        e.onNext("ca");
+                        e.onNext("d");
+                    }
+                }, FlowableEmitter.BackpressureMode.BUFFER)
+                .filter(new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) throws Exception {
+                        return s.contains("a");
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        L.i("-----2>" + s);
+                    }
+                });
+        //顺序执行接口
+        App.getComponent().request().getWeiXin("1")
+                .doOnNext(new Consumer<WeiXinDataListRes>() {
+                    @Override
+                    public void accept(WeiXinDataListRes weiXinDataListRes) throws Exception {
+
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Subscription>() {
+                    @Override
+                    public void accept(Subscription subscription) throws Exception {
+                        view.showBegin();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .flatMap(new Function<WeiXinDataListRes, Publisher<WeatherDataRes>>() {
+                    @Override
+                    public Publisher<WeatherDataRes> apply(WeiXinDataListRes weiXinDataListRes) throws Exception {
+                        L.i("------------>3-->1" + weiXinDataListRes.toString());
+                        return App.getComponent().request().getWeather("杭州");
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .flatMap(new Function<WeatherDataRes, Publisher<NewsDataRes>>() {
+                    @Override
+                    public Publisher<NewsDataRes> apply(WeatherDataRes weatherDataRes) throws Exception {
+                        L.i("------------>3-->2" + weatherDataRes.toString());
+                        return App.getComponent().request().getNews("1", "top");
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<NewsDataRes>() {
+                    @Override
+                    public void accept(NewsDataRes newsDataRes) throws Exception {
+                        L.i("------------>3-->3" + newsDataRes.toString());
+                        view.showEnd();
+                    }
+                });
     }
 }
