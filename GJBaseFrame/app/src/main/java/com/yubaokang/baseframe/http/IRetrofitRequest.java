@@ -39,7 +39,6 @@ public interface IRetrofitRequest {
     @FormUrlEncoded
     @POST("http://v.juhe.cn/weixin/query?key=b1d95432ce5be3b2d6f6bd64780b592d")
     Flowable<WeiXinDataListRes> getWeiXin(@Field("pno") String pno);
-
     /**
      * 新闻头条
      *
@@ -61,4 +60,8 @@ public interface IRetrofitRequest {
     @FormUrlEncoded
     @POST("http://nphoneapi.goujiawang.com/NAUserInfoWebsiteJson/login.html")
     Flowable<LoginData> login(@Field("userName") String userName, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("http://japi.juhe.cn/funny/type.from")
+    Flowable<LoginData> xiaohuadaquan(@Field("userName") String userName, @Field("password") String password);
 }

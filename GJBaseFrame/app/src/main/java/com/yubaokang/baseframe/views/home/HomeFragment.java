@@ -71,7 +71,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     public void init(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
         homeAdapter1 = new HomeAdapter1(getActivity(), R.layout.item_home, datas);
-        homeAdapter1.addHeaderView(getHeaderView());
+//        homeAdapter1.addHeaderView(getHeaderView());
+        getHeaderView();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 //        recyclerView.setOtherItemCount(2);

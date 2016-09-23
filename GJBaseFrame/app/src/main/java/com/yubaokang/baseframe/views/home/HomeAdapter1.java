@@ -3,7 +3,7 @@ package com.yubaokang.baseframe.views.home;
 import android.content.Context;
 
 import com.gj.base.lib.adapter.base.ViewHolder;
-import com.gj.base.lib.adapter.my.HeaderFooterLoadMoreAdapter;
+import com.gj.base.lib.adapter.my.LoadMoreAdapter;
 import com.yubaokang.baseframe.R;
 import com.yubaokang.baseframe.model.response.WeiXinDataListRes;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by yubaokang on 2016/8/31.
  */
 
-public class HomeAdapter1 extends HeaderFooterLoadMoreAdapter<WeiXinDataListRes.Result.ListBean> {
+public class HomeAdapter1 extends LoadMoreAdapter<WeiXinDataListRes.Result.ListBean> {
 
     public HomeAdapter1(Context context, int layoutId, List<WeiXinDataListRes.Result.ListBean> datas) {
         super(context, layoutId, datas);

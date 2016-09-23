@@ -13,7 +13,6 @@ import dagger.Provides;
 @Module
 public class HomeFragmentModule {
     private HomeFragmentContract.View view;
-
     @Inject
     public HomeFragmentModule() {
     }
